@@ -10,24 +10,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <meta
-    name="theme-color"
-    content="#111827"
-  >
+  <title>CEMS Continuous QR Scanner</title>
 
-  <title>
-    CEMS Continuous QR Scanner
-  </title>
-
-
-  <!-- =========================================================
-       HTML5 QR CODE LIBRARY
-  ========================================================== -->
-
-  <script
-    src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js">
-  </script>
-
+  <script src="https://unpkg.com/html5-qrcode"></script>
 
   <style>
 
@@ -35,365 +20,132 @@
       box-sizing: border-box;
     }
 
-
     body {
-
       margin: 0;
-
-      padding: 15px;
-
+      padding: 16px;
       background: #111827;
-
-      color: #111827;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
     }
-
 
     .container {
-
-      width: 100%;
-
-      max-width: 520px;
-
-      margin: 0 auto;
-
+      max-width: 560px;
+      margin: auto;
     }
-
 
     .header {
-
-      background: #ffffff;
-
-      padding: 18px;
-
+      background: #1f2937;
+      padding: 20px;
       border-radius: 14px;
-
-      margin-bottom: 12px;
-
-      text-align: center;
-
+      margin-bottom: 15px;
     }
-
 
     .header h1 {
-
       margin: 0;
-
-      font-size: 21px;
-
+      font-size: 22px;
     }
-
 
     .header p {
-
-      margin: 6px 0 0;
-
-      color: #6b7280;
-
-      font-size: 12px;
-
+      margin: 7px 0 0;
+      font-size: 13px;
+      color: #d1d5db;
       line-height: 1.5;
-
     }
-
 
     .card {
-
-      background: #ffffff;
-
-      padding: 16px;
-
-      border-radius: 14px;
-
-      margin-bottom: 12px;
-
-    }
-
-
-    label {
-
-      display: block;
-
-      margin-bottom: 6px;
-
-      font-size: 13px;
-
-      font-weight: bold;
-
-    }
-
-
-    input {
-
-      width: 100%;
-
-      padding: 13px;
-
-      border:
-
-        1px solid #d1d5db;
-
-      border-radius: 8px;
-
-      font-size: 16px;
-
-      outline: none;
-
-    }
-
-
-    input:focus {
-
-      border-color: #111827;
-
-    }
-
-
-    button {
-
-      width: 100%;
-
-      padding: 14px;
-
-      border: 0;
-
-      border-radius: 8px;
-
-      font-size: 14px;
-
-      font-weight: bold;
-
-      cursor: pointer;
-
-      margin-top: 10px;
-
-    }
-
-
-    .start {
-
-      background: #166534;
-
-      color: white;
-
-    }
-
-
-    .stop {
-
-      background: #991b1b;
-
-      color: white;
-
-    }
-
-
-    .clear {
-
-      background: #e5e7eb;
-
+      background: #fff;
       color: #111827;
-
+      border-radius: 14px;
+      padding: 18px;
     }
-
-
-    button:disabled {
-
-      opacity: .5;
-
-      cursor: not-allowed;
-
-    }
-
 
     #reader {
-
       width: 100%;
-
       overflow: hidden;
-
       border-radius: 12px;
-
-      background: #000000;
-
+      background: #000;
+      min-height: 280px;
     }
 
+    .controls {
+      margin-top: 15px;
+    }
+
+    select,
+    button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    select {
+      border: 1px solid #d1d5db;
+      background: #fff;
+      margin-bottom: 10px;
+    }
+
+    button {
+      border: none;
+      background: #111827;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .5;
+    }
 
     .status {
-
-      margin-top: 12px;
-
+      margin-top: 14px;
       padding: 13px;
-
-      border-radius: 8px;
-
-      font-size: 13px;
-
-      line-height: 1.5;
-
-      text-align: center;
-
-    }
-
-
-    .status.info {
-
-      background: #eff6ff;
-
-      color: #1e40af;
-
-    }
-
-
-    .status.ready {
-
-      background: #ecfdf5;
-
-      color: #166534;
-
-      font-weight: bold;
-
-    }
-
-
-    .status.warning {
-
-      background: #fffbeb;
-
-      color: #92400e;
-
-    }
-
-
-    .status.error {
-
-      background: #fef2f2;
-
-      color: #991b1b;
-
-    }
-
-
-    .status.success {
-
-      background: #ecfdf5;
-
-      color: #166534;
-
-      font-weight: bold;
-
-    }
-
-
-    .scan-result {
-
-      display: none;
-
-      margin-top: 12px;
-
-      padding: 15px;
-
       border-radius: 9px;
-
-      line-height: 1.6;
-
-      font-size: 13px;
-
-    }
-
-
-    .scan-result.success {
-
-      background: #dcfce7;
-
-      border: 1px solid #86efac;
-
-      color: #166534;
-
-    }
-
-
-    .scan-result.error {
-
-      background: #fee2e2;
-
-      border: 1px solid #fca5a5;
-
-      color: #991b1b;
-
-    }
-
-
-    .scan-result.warning {
-
-      background: #fef3c7;
-
-      border: 1px solid #fcd34d;
-
-      color: #92400e;
-
-    }
-
-
-    .counter {
-
-      text-align: center;
-
-      margin-top: 10px;
-
-      font-size: 13px;
-
-      color: #6b7280;
-
-    }
-
-
-    .counter strong {
-
-      color: #111827;
-
-      font-size: 18px;
-
-    }
-
-
-    .note {
-
-      margin-top: 10px;
-
-      text-align: center;
-
-      font-size: 11px;
-
-      color: #9ca3af;
-
+      background: #f3f4f6;
+      color: #374151;
       line-height: 1.5;
-
+      font-size: 14px;
     }
 
+    .success {
+      background: #ecfdf5;
+      color: #166534;
+    }
 
-    @media (
-      max-width: 420px
-    ) {
+    .error {
+      background: #fef2f2;
+      color: #991b1b;
+    }
 
-      body {
+    .warning {
+      background: #fff7ed;
+      color: #9a3412;
+    }
 
-        padding: 8px;
+    .info {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
 
-      }
+    .attendee {
+      margin-top: 12px;
+      padding: 15px;
+      border-radius: 9px;
+      background: #f9fafb;
+      line-height: 1.7;
+      font-size: 14px;
+    }
 
+    .attendee strong {
+      display: inline-block;
+      min-width: 120px;
+    }
 
-      .card {
-
-        padding: 12px;
-
-      }
-
+    .footer {
+      margin-top: 15px;
+      text-align: center;
+      color: #9ca3af;
+      font-size: 11px;
     }
 
   </style>
@@ -407,10 +159,6 @@
 <div class="container">
 
 
-  <!-- =======================================================
-       HEADER
-  ======================================================== -->
-
   <div class="header">
 
     <h1>
@@ -418,77 +166,41 @@
     </h1>
 
     <p>
-
-      CROWNSAX LIVE IN CONCERT
-
+      CROWNSAX LIVE IN CONCERT · BREATH OF WORSHIP
       <br>
-
-      BREATH OF WORSHIP
-
-      <br>
-
       18 SEPTEMBER 2026 · DAVID EVENT CENTER, ASABA
-
     </p>
 
   </div>
 
 
-  <!-- =======================================================
-       OFFICER
-  ======================================================== -->
-
   <div class="card">
 
-    <label for="usher">
-
-      Check-In Officer
-
-    </label>
-
-
-    <input
-      id="usher"
-      type="text"
-      placeholder="Enter usher / officer name"
-      autocomplete="name"
-    >
-
-
-    <button
-      id="startButton"
-      class="start"
-      type="button"
-      onclick="startScanner()"
-    >
-
-      📷 START CAMERA
-
-    </button>
-
-
-    <button
-      id="stopButton"
-      class="stop"
-      type="button"
-      onclick="stopScanner()"
-      disabled
-    >
-
-      ⏹ STOP CAMERA
-
-    </button>
-
-  </div>
-
-
-  <!-- =======================================================
-       CAMERA
-  ======================================================== -->
-
-  <div class="card">
 
     <div id="reader"></div>
+
+
+    <div class="controls">
+
+      <select id="cameraSelect">
+
+        <option value="">
+          Detecting cameras...
+        </option>
+
+      </select>
+
+
+      <button
+        id="startButton"
+        onclick="startScanner()"
+      >
+
+        START CAMERA
+
+      </button>
+
+    </div>
 
 
     <div
@@ -496,54 +208,24 @@
       class="status info"
     >
 
-      Camera is not active.
+      Initializing scanner...
 
     </div>
 
 
     <div
-      id="scanResult"
-      class="scan-result"
+      id="attendee"
+      class="attendee"
+      style="display:none;"
     ></div>
 
-
-    <div class="counter">
-
-      Successful scans:
-
-      <strong id="scanCount">
-        0
-      </strong>
-
-    </div>
-
-
-    <div class="note">
-
-      Keep the QR code inside the scanning box.
-      After a successful scan, CEMS processes the attendee
-      and automatically prepares for the next scan.
-
-    </div>
 
   </div>
 
 
-  <!-- =======================================================
-       MANUAL STOP / RESET
-  ======================================================== -->
+  <div class="footer">
 
-  <div class="card">
-
-    <button
-      class="clear"
-      type="button"
-      onclick="resetScannerPage()"
-    >
-
-      CLEAR / RESET
-
-    </button>
+    CEMS v3.4 · Continuous Event Check-In System
 
   </div>
 
@@ -559,90 +241,227 @@
 ============================================================= */
 
 
-/*
- * IMPORTANT:
- *
- * Replace this with your deployed Apps Script
- * Web App EXEC URL.
- *
- * Example:
- *
- * https://script.google.com/macros/s/XXXXXXXXXXXX/exec
- *
- */
-
-const CEMS_API_URL =
+const API_URL =
   "https://script.google.com/macros/s/AKfycbyR9dDCTcV-qSSAh8zG0NvKzvdM-f6X64_S3yFCEQu8FiuU9L4U6DBVg7d-bAn3DjF69w/exec";
 
 
-/* =============================================================
-   GLOBAL STATE
-============================================================= */
+const CHECK_IN_PAGE =
+  "https://script.google.com/macros/s/AKfycbyR9dDCTcV-qSSAh8zG0NvKzvdM-f6X64_S3yFCEQu8FiuU9L4U6DBVg7d-bAn3DjF69w/exec?page=checkin";
+
 
 let scanner = null;
 
 let scannerRunning = false;
 
-let scanCount = 0;
+let cameras = [];
 
 let processingScan = false;
 
-let lastScannedValue = "";
+let lastScan = "";
 
 let lastScanTime = 0;
 
 
-/*
- * Prevent accidental double scans.
- *
- * Same QR code will not be processed again
- * within this time window.
- */
+/* =============================================================
+   GET USHER
+============================================================= */
 
-const DUPLICATE_SCAN_DELAY =
-  3000;
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const usher =
+  (
+    params.get("usher") ||
+    "USHER"
+  ).trim();
 
 
 /* =============================================================
-   PAGE INITIALIZATION
+   STATUS
 ============================================================= */
 
-window.addEventListener(
-  "load",
-  initializePage
-);
 
+function setStatus(
+  message,
+  type
+) {
 
-function initializePage() {
-
-  const params =
-    new URLSearchParams(
-      window.location.search
+  const box =
+    document.getElementById(
+      "status"
     );
 
 
-  const usher =
-    params.get(
-      "usher"
+  box.className =
+    "status " +
+    (
+      type ||
+      "info"
     );
 
 
-  if (usher) {
+  box.innerText =
+    message;
 
-    document
-      .getElementById(
-        "usher"
-      )
-      .value =
-      usher;
+}
+
+
+/* =============================================================
+   LOAD CAMERAS
+============================================================= */
+
+
+async function loadCameras() {
+
+  setStatus(
+    "Requesting camera permission...",
+    "info"
+  );
+
+
+  try {
+
+    /*
+     * IMPORTANT:
+     *
+     * We deliberately DO NOT use:
+     *
+     * facingMode: "environment"
+     *
+     * because that caused the browser error:
+     *
+     * "'facingMode' should be string or object with exact as key"
+     *
+     * Instead, html5-qrcode enumerates the available
+     * cameras after permission is granted.
+     */
+
+
+    cameras =
+      await Html5Qrcode
+        .getCameras();
+
+
+    const select =
+      document.getElementById(
+        "cameraSelect"
+      );
+
+
+    select.innerHTML = "";
+
+
+    if (
+      !cameras ||
+      cameras.length === 0
+    ) {
+
+      setStatus(
+        "No camera was detected on this device.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    cameras.forEach(
+      function(camera, index) {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          camera.id;
+
+
+        option.textContent =
+          camera.label ||
+          (
+            "Camera " +
+            (index + 1)
+          );
+
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+
+    /*
+     * Prefer the rear/environment camera
+     * when the browser exposes useful labels.
+     */
+
+
+    let preferredCamera =
+      cameras.find(
+        function(camera) {
+
+          const label =
+            String(
+              camera.label || ""
+            )
+              .toLowerCase();
+
+
+          return (
+            label.includes("back") ||
+            label.includes("rear") ||
+            label.includes("environment") ||
+            label.includes("world")
+          );
+
+        }
+      );
+
+
+    if (
+      preferredCamera
+    ) {
+
+      select.value =
+        preferredCamera.id;
+
+    }
+
+
+    setStatus(
+      "Camera detected. Select a camera and tap START CAMERA.",
+      "success"
+    );
 
   }
 
+  catch (error) {
 
-  setStatus(
-    "Enter the check-in officer name and start the camera.",
-    "info"
-  );
+    console.error(
+      "Camera enumeration error:",
+      error
+    );
+
+
+    setStatus(
+
+      "Unable to access the camera. " +
+      "Please allow camera permission in your browser and reload the page.",
+
+      "error"
+
+    );
+
+  }
 
 }
 
@@ -651,31 +470,31 @@ function initializePage() {
    START SCANNER
 ============================================================= */
 
+
 async function startScanner() {
 
-  const usher =
-    document
-      .getElementById(
-        "usher"
-      )
-      .value
-      .trim();
-
-
-  if (!usher) {
-
-    setStatus(
-      "Please enter the check-in officer name first.",
-      "warning"
+  const select =
+    document.getElementById(
+      "cameraSelect"
     );
 
 
-    document
-      .getElementById(
-        "usher"
-      )
-      .focus();
+  const button =
+    document.getElementById(
+      "startButton"
+    );
 
+
+  const cameraId =
+    select.value;
+
+
+  if (!cameraId) {
+
+    setStatus(
+      "Please select a camera first.",
+      "warning"
+    );
 
     return;
 
@@ -683,42 +502,29 @@ async function startScanner() {
 
 
   if (
-    CEMS_API_URL ===
-    "PASTE_YOUR_CEMS_EXEC_URL_HERE"
+    scannerRunning
   ) {
 
-    setStatus(
-
-      "CEMS API URL has not been connected yet.",
-
-      "error"
-
-    );
-
-
     return;
 
   }
 
 
-  if (scannerRunning) {
+  button.disabled =
+    true;
 
-    return;
 
-  }
+  button.innerText =
+    "STARTING CAMERA...";
+
+
+  setStatus(
+    "Starting camera...",
+    "info"
+  );
 
 
   try {
-
-    setStatus(
-      "Requesting camera permission...",
-      "info"
-    );
-
-
-    /*
-     * Create scanner.
-     */
 
     scanner =
       new Html5Qrcode(
@@ -726,61 +532,51 @@ async function startScanner() {
       );
 
 
-    /*
-     * QR-only scanner configuration.
-     */
-
-    const config = {
-
-      fps: 10,
-
-      qrbox: {
-
-        width: 260,
-
-        height: 260
-
-      },
-
-      aspectRatio: 1.0,
-
-      formatsToSupport: [
-
-        Html5QrcodeSupportedFormats.QR_CODE
-
-      ]
-
-    };
-
-
-    /*
-     * IMPORTANT:
-     *
-     * Do NOT use:
-     *
-     * {
-     *   facingMode: {
-     *     ideal: "environment"
-     *   }
-     * }
-     *
-     * html5-qrcode expects:
-     *
-     * { facingMode: "environment" }
-     *
-     * or:
-     *
-     * { facingMode: { exact: "environment" } }
-     */
-
     await scanner.start(
 
-      {
-        facingMode:
-          "environment"
-      },
+      cameraId,
 
-      config,
+      {
+
+        fps: 10,
+
+        qrbox: function(
+          viewfinderWidth,
+          viewfinderHeight
+        ) {
+
+          const minDimension =
+            Math.min(
+              viewfinderWidth,
+              viewfinderHeight
+            );
+
+
+          const size =
+            Math.floor(
+              minDimension * 0.72
+            );
+
+
+          return {
+
+            width:
+              size,
+
+            height:
+              size
+
+          };
+
+        },
+
+        aspectRatio:
+          1.7777778,
+
+        disableFlip:
+          false
+
+      },
 
       onScanSuccess,
 
@@ -793,34 +589,21 @@ async function startScanner() {
       true;
 
 
-    document
-      .getElementById(
-        "startButton"
-      )
-      .disabled =
-      true;
-
-
-    document
-      .getElementById(
-        "stopButton"
-      )
-      .disabled =
-      false;
+    button.innerText =
+      "CAMERA RUNNING";
 
 
     setStatus(
-      "CAMERA ACTIVE — READY TO SCAN",
-      "ready"
+      "Scanner active. Point the camera at an attendee QR code.",
+      "success"
     );
 
   }
 
-
   catch (error) {
 
     console.error(
-      "Camera start error:",
+      "Scanner start error:",
       error
     );
 
@@ -829,47 +612,22 @@ async function startScanner() {
       false;
 
 
-    if (scanner) {
-
-      try {
-
-        await scanner.clear();
-
-      }
-
-      catch (ignore) {}
-
-    }
-
-
-    scanner =
-      null;
-
-
-    document
-      .getElementById(
-        "startButton"
-      )
-      .disabled =
+    button.disabled =
       false;
 
 
-    document
-      .getElementById(
-        "stopButton"
-      )
-      .disabled =
-      true;
+    button.innerText =
+      "START CAMERA";
 
 
     setStatus(
 
-      "Unable to start camera: " +
-      String(
+      "CAMERA ERROR: " +
+      (
         error &&
         error.message
           ? error.message
-          : error
+          : String(error)
       ),
 
       "error"
@@ -882,61 +640,37 @@ async function startScanner() {
 
 
 /* =============================================================
-   SCAN SUCCESS
+   QR SUCCESS
 ============================================================= */
 
+
 async function onScanSuccess(
-  decodedText,
-  decodedResult
+  decodedText
 ) {
-
-  const value =
-    String(
-      decodedText || ""
-    )
-      .trim();
-
-
-  if (!value) {
-
-    return;
-
-  }
-
-
-  /*
-   * Prevent multiple callbacks
-   * for the same QR frame.
-   */
 
   const now =
     Date.now();
 
 
-  if (
-
-    value ===
-    lastScannedValue &&
-
-    (
-      now -
-      lastScanTime
-    ) <
-    DUPLICATE_SCAN_DELAY
-
-  ) {
-
-    return;
-
-  }
-
-
   /*
-   * Prevent simultaneous API requests.
+   * Prevent the same QR from being processed
+   * repeatedly while it remains in camera view.
    */
 
+
   if (
-    processingScan
+
+    processingScan ||
+
+    (
+      decodedText === lastScan &&
+      (
+        now -
+        lastScanTime
+      ) <
+      4000
+    )
+
   ) {
 
     return;
@@ -944,8 +678,9 @@ async function onScanSuccess(
   }
 
 
-  lastScannedValue =
-    value;
+  lastScan =
+    decodedText;
+
 
   lastScanTime =
     now;
@@ -956,129 +691,205 @@ async function onScanSuccess(
 
 
   setStatus(
-    "QR DETECTED — VERIFYING ATTENDEE...",
+    "QR detected. Verifying attendee...",
     "info"
   );
 
 
-  showScanResult(
-    "",
-    "Processing..."
-  );
-
-
-  const usher =
-    document
-      .getElementById(
-        "usher"
-      )
-      .value
-      .trim();
-
-
-  if (!usher) {
-
-    processingScan =
-      false;
-
-
-    setStatus(
-      "Check-in officer name is required.",
-      "warning"
-    );
-
-
-    return;
-
-  }
-
-
   try {
 
-    const response =
-      await fetch(
-        CEMS_API_URL,
-        {
-
-          method:
-            "POST",
-
-          headers: {
-
-            "Content-Type":
-              "text/plain;charset=utf-8"
-
-          },
-
-          body:
-            JSON.stringify({
-
-              action:
-                "CHECK_IN",
-
-              payload:
-                value,
-
-              checkedInBy:
-                usher
-
-            })
-
-        }
+    const result =
+      await processCheckIn(
+        decodedText
       );
 
 
-    const result =
-      await response.json();
+    if (
+      result &&
+      result.success === true
+    ) {
+
+      showAttendee(
+        result.attendee || {},
+        true
+      );
 
 
-    handleScanResponse(
-      result
+      setStatus(
+        "CHECK-IN SUCCESSFUL. Ready for next attendee.",
+        "success"
+      );
+
+
+      /*
+       * Short pause before accepting the next QR.
+       */
+
+
+      setTimeout(
+        function() {
+
+          processingScan =
+            false;
+
+          setStatus(
+            "Scanner active. Ready for next attendee.",
+            "success"
+          );
+
+        },
+        1200
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+     * Already checked in
+     */
+
+
+    if (
+      result &&
+      result.code ===
+      "ALREADY_CHECKED_IN"
+    ) {
+
+      showAttendee(
+        result.attendee || {},
+        false
+      );
+
+
+      setStatus(
+        "ATTENDEE ALREADY CHECKED IN.",
+        "warning"
+      );
+
+
+      setTimeout(
+        function() {
+
+          processingScan =
+            false;
+
+        },
+        1500
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+     * Cancelled
+     */
+
+
+    if (
+      result &&
+      result.code ===
+      "CANCELLED"
+    ) {
+
+      showAttendee(
+        result.attendee || {},
+        false
+      );
+
+
+      setStatus(
+        "THIS REGISTRATION IS CANCELLED.",
+        "error"
+      );
+
+
+      setTimeout(
+        function() {
+
+          processingScan =
+            false;
+
+        },
+        1500
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+     * Not found
+     */
+
+
+    setStatus(
+
+      (
+        result &&
+        result.message
+      )
+
+        ? result.message
+
+        : "ATTENDEE NOT FOUND.",
+
+      "error"
+
+    );
+
+
+    setTimeout(
+      function() {
+
+        processingScan =
+          false;
+
+      },
+      1500
     );
 
   }
-
 
   catch (error) {
 
     console.error(
-      "CEMS API error:",
+      "Check-in API error:",
       error
     );
 
 
     setStatus(
-      "CEMS server communication failed.",
-      "error"
-    );
 
-
-    showScanResult(
-
-      "ERROR",
-
-      escapeHtml(
-
+      "CHECK-IN ERROR: " +
+      (
         error &&
         error.message
-
           ? error.message
-
-          : "Unable to contact CEMS."
-
+          : String(error)
       ),
 
       "error"
 
     );
 
-  }
 
+    setTimeout(
+      function() {
 
-  finally {
+        processingScan =
+          false;
 
-    processingScan =
-      false;
+      },
+      1500
+    );
 
   }
 
@@ -1086,508 +897,169 @@ async function onScanSuccess(
 
 
 /* =============================================================
-   SCAN RESPONSE
+   QR FAILURE CALLBACK
 ============================================================= */
 
-function handleScanResponse(
-  response
-) {
-
-  if (!response) {
-
-    setStatus(
-      "CEMS returned no response.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  /*
-   * SUCCESS
-   */
-
-  if (
-    response.success === true
-  ) {
-
-    const attendee =
-      response.attendee || {};
-
-
-    scanCount++;
-
-
-    document
-      .getElementById(
-        "scanCount"
-      )
-      .innerText =
-      scanCount;
-
-
-    setStatus(
-
-      "CHECK-IN SUCCESSFUL — READY FOR NEXT ATTENDEE",
-
-      "success"
-
-    );
-
-
-    showScanResult(
-
-      "SUCCESS",
-
-      "<strong>Name:</strong> " +
-
-      escapeHtml(
-        attendee.fullName || ""
-      ) +
-
-      "<br>" +
-
-      "<strong>Registration ID:</strong> " +
-
-      escapeHtml(
-        attendee.registrationId || ""
-      ) +
-
-      "<br>" +
-
-      "<strong>Seat:</strong> " +
-
-      escapeHtml(
-
-        attendee.seat ||
-        "GENERAL ADMISSION"
-
-      ) +
-
-      "<br>" +
-
-      "<strong>Checked In By:</strong> " +
-
-      escapeHtml(
-        attendee.checkedInBy || ""
-      ) +
-
-      "<br>" +
-
-      "<strong>Check-In Time:</strong> " +
-
-      escapeHtml(
-        attendee.checkInTime || ""
-      ),
-
-      "success"
-
-    );
-
-
-    /*
-     * Scanner remains running.
-     *
-     * No restart required.
-     */
-
-    return;
-
-  }
-
-
-  /*
-   * ALREADY CHECKED IN
-   */
-
-  if (
-    response.code ===
-    "ALREADY_CHECKED_IN"
-  ) {
-
-    const attendee =
-      response.attendee || {};
-
-
-    setStatus(
-      "ATTENDEE ALREADY CHECKED IN",
-      "warning"
-    );
-
-
-    showScanResult(
-
-      "ALREADY CHECKED IN",
-
-      "<strong>Name:</strong> " +
-
-      escapeHtml(
-        attendee.fullName || ""
-      ) +
-
-      "<br>" +
-
-      "<strong>Registration ID:</strong> " +
-
-      escapeHtml(
-        attendee.registrationId || ""
-      ) +
-
-      "<br>" +
-
-      "<strong>Seat:</strong> " +
-
-      escapeHtml(
-
-        attendee.seat ||
-        "GENERAL ADMISSION"
-
-      ) +
-
-      "<br>" +
-
-      "<strong>Previous Check-In:</strong> " +
-
-      escapeHtml(
-        attendee.checkInTime || ""
-      ),
-
-      "warning"
-
-    );
-
-
-    return;
-
-  }
-
-
-  /*
-   * CANCELLED
-   */
-
-  if (
-    response.code ===
-    "CANCELLED"
-  ) {
-
-    setStatus(
-      "CANCELLED REGISTRATION",
-      "error"
-    );
-
-
-    showScanResult(
-
-      "CANCELLED",
-
-      escapeHtml(
-
-        response.message ||
-        "This registration has been cancelled."
-
-      ),
-
-      "error"
-
-    );
-
-
-    return;
-
-  }
-
-
-  /*
-   * NOT FOUND
-   */
-
-  if (
-    response.code ===
-    "ATTENDEE_NOT_FOUND"
-  ) {
-
-    setStatus(
-      "ATTENDEE NOT FOUND",
-      "error"
-    );
-
-
-    showScanResult(
-
-      "NOT FOUND",
-
-      escapeHtml(
-
-        response.message ||
-        "No attendee was found."
-
-      ),
-
-      "error"
-
-    );
-
-
-    return;
-
-  }
-
-
-  /*
-   * GENERAL ERROR
-   */
-
-  setStatus(
-
-    response.message ||
-    "Check-in failed.",
-
-    "error"
-
-  );
-
-
-  showScanResult(
-
-    "CHECK-IN FAILED",
-
-    escapeHtml(
-
-      response.message ||
-      "The attendee could not be checked in."
-
-    ),
-
-    "error"
-
-  );
-
-}
-
-
-/* =============================================================
-   SCAN FAILURE CALLBACK
-============================================================= */
 
 function onScanFailure(
   errorMessage
 ) {
 
   /*
-   * html5-qrcode calls this repeatedly
-   * whenever no QR code is visible.
+   * This callback fires constantly while
+   * the scanner is looking for a QR.
    *
-   * Do NOT display errors here.
+   * Do not display every failure to the user.
    */
 
 }
 
 
 /* =============================================================
-   STOP SCANNER
+   SEND CHECK-IN TO CEMS
 ============================================================= */
 
-async function stopScanner() {
 
-  if (!scanner) {
-
-    return;
-
-  }
-
-
-  try {
-
-    if (
-      scannerRunning
-    ) {
-
-      await scanner.stop();
-
-    }
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Scanner stop error:",
-      error
-    );
-
-  }
-
-
-  try {
-
-    await scanner.clear();
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Scanner clear error:",
-      error
-    );
-
-  }
-
-
-  scanner =
-    null;
-
-
-  scannerRunning =
-    false;
-
-
-  processingScan =
-    false;
-
-
-  document
-    .getElementById(
-      "startButton"
-    )
-    .disabled =
-    false;
-
-
-  document
-    .getElementById(
-      "stopButton"
-    )
-    .disabled =
-    true;
-
-
-  setStatus(
-    "CAMERA STOPPED.",
-    "info"
-  );
-
-}
-
-
-/* =============================================================
-   RESET PAGE
-============================================================= */
-
-async function resetScannerPage() {
-
-  await stopScanner();
-
-
-  scanCount =
-    0;
-
-
-  lastScannedValue =
-    "";
-
-
-  lastScanTime =
-    0;
-
-
-  document
-    .getElementById(
-      "scanCount"
-    )
-    .innerText =
-    "0";
-
-
-  document
-    .getElementById(
-      "scanResult"
-    )
-    .style.display =
-    "none";
-
-
-  setStatus(
-    "Scanner reset. Ready to start.",
-    "info"
-  );
-
-}
-
-
-/* =============================================================
-   STATUS
-============================================================= */
-
-function setStatus(
-  message,
-  type
+async function processCheckIn(
+  qrPayload
 ) {
 
-  const element =
-    document
-      .getElementById(
-        "status"
-      );
+  /*
+   * IMPORTANT:
+   *
+   * Google Apps Script Web Apps do not reliably support
+   * cross-origin fetch requests in the same way as a normal
+   * REST API.
+   *
+   * This endpoint is therefore expected to be the deployed
+   * CEMS Web App /exec URL.
+   */
 
 
-  element.className =
-    "status " +
-    (
-      type ||
-      "info"
+  const response =
+    await fetch(
+      API_URL,
+      {
+
+        method:
+          "POST",
+
+        headers: {
+
+          "Content-Type":
+            "text/plain;charset=utf-8"
+
+        },
+
+        body:
+          JSON.stringify({
+
+            action:
+              "CHECK_IN",
+
+            payload:
+              qrPayload,
+
+            checkedInBy:
+              usher
+
+          })
+
+      }
     );
 
 
-  element.innerText =
-    message;
+  if (
+    !response.ok
+  ) {
+
+    throw new Error(
+      "CEMS server returned HTTP " +
+      response.status
+    );
+
+  }
+
+
+  return await response.json();
 
 }
 
 
 /* =============================================================
-   SCAN RESULT
+   DISPLAY ATTENDEE
 ============================================================= */
 
-function showScanResult(
-  title,
-  message,
-  type
+
+function showAttendee(
+  attendee,
+  success
 ) {
 
-  const element =
-    document
-      .getElementById(
-        "scanResult"
-      );
-
-
-  element.className =
-    "scan-result " +
-    (
-      type ||
-      "success"
+  const box =
+    document.getElementById(
+      "attendee"
     );
 
 
-  element.innerHTML =
+  box.innerHTML =
 
-    title
+    "<strong>NAME:</strong> " +
+    escapeHtml(
+      attendee.fullName ||
+      ""
+    ) +
 
-      ? "<strong>" +
-        escapeHtml(
-          title
-        ) +
-        "</strong><br><br>" +
-        message
+    "<br>" +
 
-      : message;
+    "<strong>REG ID:</strong> " +
+    escapeHtml(
+      attendee.registrationId ||
+      ""
+    ) +
+
+    "<br>" +
+
+    "<strong>PHONE:</strong> " +
+    escapeHtml(
+      attendee.phone ||
+      ""
+    ) +
+
+    "<br>" +
+
+    "<strong>SEAT:</strong> " +
+    escapeHtml(
+      attendee.seat ||
+      "GENERAL ADMISSION"
+    ) +
+
+    "<br>" +
+
+    "<strong>TYPE:</strong> " +
+    escapeHtml(
+      attendee.attendanceType ||
+      "GENERAL ADMISSION"
+    ) +
+
+    "<br>" +
+
+    "<strong>CHECKED IN BY:</strong> " +
+    escapeHtml(
+      attendee.checkedInBy ||
+      usher
+    ) +
+
+    "<br>" +
+
+    "<strong>CHECK-IN TIME:</strong> " +
+    escapeHtml(
+      attendee.checkInTime ||
+      ""
+    );
 
 
-  element.style.display =
+  box.style.display =
     "block";
 
 }
@@ -1597,6 +1069,7 @@ function showScanResult(
    HTML ESCAPE
 ============================================================= */
 
+
 function escapeHtml(
   value
 ) {
@@ -1605,9 +1078,7 @@ function escapeHtml(
 
     value === undefined ||
     value === null
-
       ? ""
-
       : value
 
   )
@@ -1638,6 +1109,28 @@ function escapeHtml(
     );
 
 }
+
+
+/* =============================================================
+   INITIALIZE
+============================================================= */
+
+
+window.addEventListener(
+  "load",
+  function() {
+
+    setStatus(
+      "Scanner loaded. Requesting camera access...",
+      "info"
+    );
+
+
+    loadCameras();
+
+  }
+);
+
 
 </script>
 
